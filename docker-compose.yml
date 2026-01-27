@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  react-app:
+    build: .
+    container_name: portfolio_app
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
