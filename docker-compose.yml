@@ -32,7 +32,7 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.portfolio.rule=Host(`sofiane-kherarfa.azim404.com`)"
+      - "traefik.http.routers.portfolio.rule=Host(`sofiane-kherarfa.azim404.com`) || Host(`azim404.com`) || Host(`www.azim404.com`)"
       - "traefik.http.routers.portfolio.entrypoints=websecure"
       - "traefik.http.routers.portfolio.tls.certresolver=myresolver"
       - "traefik.http.services.portfolio.loadbalancer.server.port=80"
