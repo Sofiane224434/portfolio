@@ -42,11 +42,18 @@ jobs:
             if [ -d ".git" ]; then
               git fetch origin
               git reset --hard origin/main
+              git clean -fd
             else
               rm -rf $APP_DIR/*
               rm -rf $APP_DIR/.*  2>/dev/null || true
               git clone $REPO_URL .
             fi
+
+            echo "🔍 Vérification du code récupéré..."
+            echo "Dernier commit:"
+            git log -1 --oneline
+            echo "Contenu de Projects.jsx:"
+            grep -A 2 "title:" src/components/Projects.jsx || echo "Fichier non trouvé"
 
             echo "🐳 Build Docker..."
             docker compose down || true
