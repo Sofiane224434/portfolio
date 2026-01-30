@@ -4,31 +4,11 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-commerce Website',
-      description: 'Une application e-commerce complète avec panier, paiement et gestion des commandes.',
-      technologies: ['React', 'Node.js', 'MongoDB'],
-      image: 'https://via.placeholder.com/400x300',
-    },
-    {
-      id: 2,
-      title: 'Dashboard Analytics',
-      description: 'Tableau de bord interactif avec visualisations de données en temps réel.',
-      technologies: ['React', 'Chart.js', 'Tailwind'],
-      image: 'https://via.placeholder.com/400x300',
-    },
-    {
-      id: 3,
-      title: 'Task Manager App',
-      description: 'Application de gestion de tâches avec drag & drop et notifications.',
-      technologies: ['React', 'Firebase', 'Material-UI'],
-      image: 'https://via.placeholder.com/400x300',
-    },
-    {
-      id: 4,
-      title: 'Portfolio Template',
-      description: 'Template de portfolio moderne et responsive pour développeurs.',
-      technologies: ['React', 'Vite', 'Tailwind CSS'],
-      image: 'https://via.placeholder.com/400x300',
+      title: 'MovieDB',
+      description: 'Application web de découverte de films avec recherche, filtres et détails complets des films.',
+      technologies: ['React', 'API TMDB', 'Tailwind CSS'],
+      image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=300&fit=crop',
+      link: 'https://moviedb.azim404.com/',
     },
   ];
 
@@ -68,12 +48,16 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="flex gap-4">
-                  <button className="text-indigo-600 hover:text-indigo-700 font-medium">
-                    Voir démo →
-                  </button>
-                  <button className="text-gray-600 hover:text-gray-700 font-medium">
-                    Code source →
-                  </button>
+                  {project.link && (
+                    <a 
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-600 hover:text-indigo-700 font-medium"
+                    >
+                      Voir démo →
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
