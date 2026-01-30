@@ -31,6 +31,9 @@ jobs:
             APP_DIR=~/apps/deploy-app-react
             REPO_URL=https://github.com/${{ github.repository }}.git
 
+            echo "🌐 Vérification du réseau Docker..."
+            docker network inspect web >/dev/null 2>&1 || docker network create web
+
             echo "📁 Préparation du dossier..."
             mkdir -p $APP_DIR
             cd $APP_DIR
