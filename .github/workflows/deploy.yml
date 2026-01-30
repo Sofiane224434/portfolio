@@ -59,4 +59,4 @@ jobs:
             docker image prune -f
 
             echo "✅ Déploiement terminé !"
-            docker ps | grep deploy-app-react
+            docker ps | grep portfolio_app
