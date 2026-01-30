@@ -57,6 +57,9 @@ jobs:
             echo "🚀 Lancement du container..."
             docker compose up -d
 
+            echo "🔍 Vérification du contenu déployé..."
+            docker exec portfolio_app cat /usr/share/nginx/html/index.html
+
             echo "🧹 Nettoyage..."
             docker image prune -f
 
