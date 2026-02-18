@@ -16,11 +16,11 @@ const About = () => {
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
           À propos de moi
         </h2>
-        
+
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-gray-600 text-lg mb-6">
-              Développeur passionné avec plusieurs années d'expérience dans la création d'applications web modernes et performantes.
+              Developpeur passionné avec plusieurs années d'expérience dans la création d'applications web modernes et performantes.
             </p>
             <p className="text-gray-600 text-lg mb-6">
               Je me spécialise dans le développement frontend avec React et dans la création d'interfaces utilisateur élégantes et intuitives.
@@ -40,7 +40,7 @@ const About = () => {
                     <span className="text-gray-500">{skill.level}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div 
+                    <div
                       className="bg-indigo-600 h-2 rounded-full transition-all duration-500"
                       style={{ width: `${skill.level}%` }}
                     ></div>
