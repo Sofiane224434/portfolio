@@ -20,7 +20,7 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-gray-600 text-lg mb-6">
-              Developpeur passionné avec plusieurs années d'expérience dans la création d'applications web modernes et performantes.
+              Developpeur passionné avec plusieurs années d'experience dans la création d'applications web modernes et performantes.
             </p>
             <p className="text-gray-600 text-lg mb-6">
               Je me spécialise dans le développement frontend avec React et dans la création d'interfaces utilisateur élégantes et intuitives.
