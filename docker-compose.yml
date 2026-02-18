@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   react-app:
     build: .
@@ -13,13 +11,6 @@ services:
       - "traefik.http.routers.portfolio.tls=true"
       - "traefik.http.routers.portfolio.tls.certresolver=myresolver"
       - "traefik.http.services.portfolio.loadbalancer.server.port=80"
-      
-      # Redirection HTTP vers HTTPS
-      - "traefik.http.routers.portfolio-http.rule=Host(`sofiane-kherarfa.azim404.com`) || Host(`azim404.com`) || Host(`www.azim404.com`)"
-      - "traefik.http.routers.portfolio-http.entrypoints=web"
-      - "traefik.http.routers.portfolio-http.middlewares=redirect-to-https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true"
     networks:
       - web
 

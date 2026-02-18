@@ -1,0 +1,47 @@
+# ═══════════════════════════════════════════════════════════════════════
+# CONFIGURATION TRAEFIK v3
+# ═══════════════════════════════════════════════════════════════════════
+
+# API et Dashboard
+api:
+  dashboard: true
+  insecure: false
+
+# Points d'entrée
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        certResolver: myresolver
+
+# Providers Docker
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: web
+
+# Certificats Let's Encrypt
+certificatesResolvers:
+  myresolver:
+    acme:
+      email: sofiankherarfa@gmail.com
+      storage: /letsencrypt/acme.json
+      httpChallenge:
+        entryPoint: web
+
+# Logs
+log:
+  level: INFO
+
+accessLog: {}
