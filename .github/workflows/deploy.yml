@@ -1,7 +1,7 @@
 # ═══════════════════════════════════════════════════════════════════════
 # WORKFLOW DE DÉPLOIEMENT AUTOMATIQUE - REACT + VITE
 # ═══════════════════════════════════════════════════════════════════════
-name: Deploy React App to VPS
+name: Deploy portfolio to VPS
 
 on:
   push:
@@ -17,7 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Étape 2 : Se connecter au VPS et déployer
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -49,23 +48,9 @@ jobs:
               git clone $REPO_URL .
             fi
 
-            echo "🔍 Vérification du code récupéré..."
-            echo "Dernier commit:"
-            git log -1 --oneline
-            echo "Contenu de Projects.jsx:"
-            grep -A 2 "title:" src/components/Projects.jsx || echo "Fichier non trouvé"
-
-            echo "🐳 Build Docker..."
+            echo "🐳 Déploiement Docker..."
             docker compose down || true
-            docker rm -f portfolio_app || true
-            docker rmi deploy-app-react-react-app || true
-            docker compose build --no-cache
-
-            echo "🚀 Lancement du container..."
-            docker compose up -d
-
-            echo "🔍 Vérification du contenu déployé..."
-            docker exec portfolio_app cat /usr/share/nginx/html/index.html
+            docker compose up -d --build
 
             echo "🧹 Nettoyage..."
             docker image prune -f
