@@ -43,9 +43,10 @@ jobs:
               git reset --hard origin/main
               git clean -fd
             else
-              rm -rf $APP_DIR/*
-              rm -rf $APP_DIR/.*  2>/dev/null || true
-              git clone $REPO_URL .
+              git init
+              git remote add origin $REPO_URL
+              git fetch origin main
+              git checkout -B main origin/main
             fi
 
             echo "🐳 Déploiement Docker..."

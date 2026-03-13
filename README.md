@@ -1,16 +1,48 @@
-# React + Vite
+# portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio personnel servi sur sofiane-kherarfa.azim404.com.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React + Vite
+- Docker + Docker Compose
+- Reverse proxy Nginx sur le VPS
+- GitHub Actions pour le deploiement automatique
 
-## React Compiler
+## Developpement local
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Production reelle
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+L'application est exposee uniquement en local sur le VPS:
+
+- 127.0.0.1:3002:80 pour le conteneur
+- Nginx cote hote route sofiane-kherarfa.azim404.com vers ce port
+- Le HTTPS est gere par Certbot et Nginx, pas dans Docker
+
+## Deploiement
+
+Le workflow deploye dans ~/apps/deploy-app-react et relance uniquement ce projet.
+
+Secrets GitHub requis:
+
+- VPS_HOST
+- VPS_USERNAME
+- VPS_SSH_KEY
+- VPS_PORT
+
+## Commandes utiles sur le VPS
+
+```bash
+cd ~/apps/deploy-app-react
+docker compose ps
+docker compose logs --tail=100
+```
+
+## Regle importante
+
+Ne pas ajouter de labels Traefik ou de config proxy parallele tant que l'infrastructure officielle reste Nginx hote + port local dedie.

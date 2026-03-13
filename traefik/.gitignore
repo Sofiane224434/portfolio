@@ -1,6 +1,0 @@
-# Ignorer les certificats SSL
-letsencrypt/
-acme.json
-
-# Ignorer les logs
-*.log
