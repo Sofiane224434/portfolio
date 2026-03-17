@@ -27,7 +27,7 @@ jobs:
           script: |
             set -e
 
-            APP_DIR=~/apps/deploy-app-react
+            APP_DIR=~/apps/portfolio
             REPO_URL=https://github.com/${{ github.repository }}.git
 
             echo "🌐 Vérification du réseau Docker..."
@@ -57,4 +57,4 @@ jobs:
             docker image prune -f
 
             echo "✅ Déploiement terminé !"
-            docker ps | grep portfolio_app
+            docker ps | grep portfolio
