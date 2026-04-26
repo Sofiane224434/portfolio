@@ -9,6 +9,7 @@ const Projects = () => {
       technologies: ['React', 'API TMDB', 'Tailwind CSS'],
       image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=300&fit=crop',
       link: 'https://moviedb.azim404.com/',
+      extraLink: 'https://Marsai.azim404.com/',
     },
   ];
 
@@ -47,7 +48,7 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4 items-center">
                   {project.link && (
                     <a 
                       href={project.link}
@@ -55,8 +56,21 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       className="text-indigo-600 hover:text-indigo-700 font-medium"
                     >
-                      Voir le projet →
+                      moviedb.azim404.com
                     </a>
+                  )}
+                  {project.extraLink && (
+                    <>
+                      <span className="text-gray-400">|</span>
+                      <a
+                        href={project.extraLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-indigo-600 hover:text-indigo-700 font-medium"
+                      >
+                        Marsai.azim404.com
+                      </a>
+                    </>
                   )}
                 </div>
               </div>
