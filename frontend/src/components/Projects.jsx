@@ -9,7 +9,16 @@ const Projects = () => {
       technologies: ['React', 'API TMDB', 'Tailwind CSS'],
       image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=300&fit=crop',
       link: 'https://moviedb.azim404.com/',
-      extraLink: 'https://Marsai.azim404.com/',
+      linkLabel: 'moviedb.azim404.com',
+    },
+    {
+      id: 2,
+      title: 'MarsAI',
+      description: 'Application web orientée IA avec expérience dédiée, pensée pour une navigation simple et rapide.',
+      technologies: ['React', 'API', 'Tailwind CSS'],
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
+      link: 'https://Marsai.azim404.com/',
+      linkLabel: 'Marsai.azim404.com',
     },
   ];
 
@@ -56,21 +65,8 @@ const Projects = () => {
                       rel="noopener noreferrer"
                       className="text-indigo-600 hover:text-indigo-700 font-medium"
                     >
-                      moviedb.azim404.com
+                      {project.linkLabel || 'Voir le projet →'}
                     </a>
-                  )}
-                  {project.extraLink && (
-                    <>
-                      <span className="text-gray-400">|</span>
-                      <a
-                        href={project.extraLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:text-indigo-700 font-medium"
-                      >
-                        Marsai.azim404.com
-                      </a>
-                    </>
                   )}
                 </div>
               </div>
