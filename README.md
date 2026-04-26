@@ -2,6 +2,15 @@
 
 Portfolio personnel servi sur sofiane-kherarfa.azim404.com.
 
+## Architecture
+
+Ce projet suit maintenant une forme type starter-kit:
+
+- frontend/ : application React + Vite existante
+- backend/ : espace backend (squelette)
+- conception/ : docs et aides de conception
+- scripts/ : scripts utilitaires
+
 ## Stack
 
 - React + Vite
@@ -12,8 +21,16 @@ Portfolio personnel servi sur sofiane-kherarfa.azim404.com.
 ## Developpement local
 
 ```bash
-npm install
+npm install --prefix frontend
 npm run dev
+```
+
+Commandes utiles:
+
+```bash
+npm run build
+npm run lint
+npm run preview
 ```
 
 ## Production reelle
@@ -23,6 +40,8 @@ L'application est exposee uniquement en local sur le VPS:
 - 127.0.0.1:3002:80 pour le conteneur
 - Nginx cote hote route sofiane-kherarfa.azim404.com vers ce port
 - Le HTTPS est gere par Certbot et Nginx, pas dans Docker
+
+Le build Docker compile l'application depuis `frontend/`.
 
 ## Deploiement
 

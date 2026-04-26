@@ -10,13 +10,13 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Copier les fichiers de dépendances
-COPY package*.json ./
+COPY frontend/package*.json ./
 
 # Installer les dépendances
 RUN npm ci
 
 # Copier le reste du code source
-COPY . .
+COPY frontend/ ./
 
 # Builder l'application pour la production
 RUN npm run build
