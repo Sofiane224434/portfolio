@@ -1,0 +1,56 @@
+name: Deploy portfolio to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            set -e
+
+            APP_DIR=~/apps/portfolio
+            REPO_URL=https://github.com/${{ github.repository }}.git
+
+            echo "[1/5] Verification du reseau Docker"
+            docker network inspect web >/dev/null 2>&1 || docker network create web
+
+            echo "[2/5] Preparation du dossier"
+            mkdir -p $APP_DIR
+            cd $APP_DIR
+
+            echo "[3/5] Recuperation du code"
+            if [ -d ".git" ]; then
+              git fetch origin
+              git reset --hard origin/main
+              git clean -fd
+            else
+              git init
+              git remote add origin $REPO_URL
+              git fetch origin main
+              git checkout -B main origin/main
+            fi
+
+            echo "[4/5] Deploiement Docker"
+            docker compose down || true
+            docker compose up -d --build
+
+            echo "[5/5] Nettoyage images"
+            docker image prune -f
+
+            echo "Deploiement termine"
+            docker compose ps
