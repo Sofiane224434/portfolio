@@ -9,7 +9,6 @@ const Projects = () => {
       technologies: ['React', 'API TMDB', 'Tailwind CSS'],
       image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=300&fit=crop',
       link: 'https://moviedb.azim404.com/',
-      linkLabel: 'moviedb.azim404.com',
     },
     {
       id: 2,
@@ -18,7 +17,6 @@ const Projects = () => {
       technologies: ['React', 'API', 'Tailwind CSS'],
       image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
       link: 'https://Marsai.azim404.com/',
-      linkLabel: 'Marsai.azim404.com',
     },
   ];
 
@@ -31,9 +29,12 @@ const Projects = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
           {projects.map((project) => (
-            <div 
+            <a
               key={project.id} 
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow block focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <img 
                 src={project.image} 
@@ -57,20 +58,9 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-4 items-center">
-                  {project.link && (
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-indigo-600 hover:text-indigo-700 font-medium"
-                    >
-                      {project.linkLabel || 'Voir le projet →'}
-                    </a>
-                  )}
-                </div>
+                <p className="text-indigo-600 font-medium">Cliquer sur la card pour ouvrir</p>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
