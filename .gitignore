@@ -4,5 +4,5 @@
 /frontend/.env
 /node_modules
 /scripts/.translate-cache.json
-/conception/aides/contexte-projets-prive.md
-/contexte-projet.md
+/conception/aides
+/agent/
