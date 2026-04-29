@@ -4,35 +4,39 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'MovieDB',
-      description: 'Application web de découverte de films avec recherche, filtres et détails complets des films.',
-      technologies: ['React', 'API TMDB', 'Tailwind CSS'],
-      image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=300&fit=crop',
-      link: 'https://moviedb.azim404.com/',
-    },
-    {
-      id: 2,
-      title: 'MarsAI',
-      description: 'Application web orientée IA avec expérience dédiée, pensée pour une navigation simple et rapide.',
-      technologies: ['React', 'API', 'Tailwind CSS'],
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
-      link: 'https://Marsai.azim404.com/',
-    },
-    {
-      id: 3,
-      title: 'Novakult',
-      description: 'Médiathèque culturelle en ligne pour gérer et explorer une collection de médias variés.',
-      technologies: ['PHP', 'MySQL', 'Apache'],
-      image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=300&fit=crop',
-      link: 'https://novakult.azim404.com/',
-    },
-    {
-      id: 4,
       title: 'Fansite Malaisie',
       description: 'Site vitrine dédié à la Malaisie, présentant culture, paysages et informations pratiques.',
       technologies: ['HTML', 'CSS', 'JavaScript'],
       image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=400&h=300&fit=crop',
       link: 'https://fansite.azim404.com/',
+      date: 'Septembre 2025',
+    },
+    {
+      id: 2,
+      title: 'Novakult',
+      description: 'Médiathèque culturelle en ligne pour gérer et explorer une collection de médias variés.',
+      technologies: ['PHP', 'MySQL', 'Apache'],
+      image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=300&fit=crop',
+      link: 'https://novakult.azim404.com/',
+      date: 'Novembre 2025',
+    },
+    {
+      id: 3,
+      title: 'MovieDB',
+      description: 'Application web de découverte de films avec recherche, filtres et détails complets des films.',
+      technologies: ['React', 'API TMDB', 'Tailwind CSS'],
+      image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=300&fit=crop',
+      link: 'https://moviedb.azim404.com/',
+      date: 'Janvier 2026',
+    },
+    {
+      id: 4,
+      title: 'MarsAI',
+      description: 'Application web orientée IA avec expérience dédiée, pensée pour une navigation simple et rapide.',
+      technologies: ['React', 'API', 'Tailwind CSS'],
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
+      link: 'https://Marsai.azim404.com/',
+      date: 'Mars 2026',
     },
     {
       id: 5,
@@ -41,6 +45,7 @@ const Projects = () => {
       technologies: ['React', 'Node.js', 'MySQL'],
       image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
       link: 'https://wikisguessr.azim404.com/',
+      date: 'Avril 2026 (en cours)',
     },
   ];
 
@@ -66,9 +71,14 @@ const Projects = () => {
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <h3 className="text-2xl font-bold text-gray-800 mb-3">
-                  {project.title}
-                </h3>
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <h3 className="text-2xl font-bold text-gray-800">
+                    {project.title}
+                  </h3>
+                  <span className="shrink-0 text-xs text-gray-500 mt-1">
+                    {project.date}
+                  </span>
+                </div>
                 <p className="text-gray-600 mb-4">
                   {project.description}
                 </p>
