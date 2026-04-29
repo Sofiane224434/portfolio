@@ -18,6 +18,30 @@ const Projects = () => {
       image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
       link: 'https://Marsai.azim404.com/',
     },
+    {
+      id: 3,
+      title: 'Novakult',
+      description: 'Médiathèque culturelle en ligne pour gérer et explorer une collection de médias variés.',
+      technologies: ['PHP', 'MySQL', 'Apache'],
+      image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=300&fit=crop',
+      link: 'https://novakult.azim404.com/',
+    },
+    {
+      id: 4,
+      title: 'Fansite Malaisie',
+      description: 'Site vitrine dédié à la Malaisie, présentant culture, paysages et informations pratiques.',
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=400&h=300&fit=crop',
+      link: 'https://fansite.azim404.com/',
+    },
+    {
+      id: 5,
+      title: 'WikisGuessr',
+      description: "Jeu inspiré de GeoGuessr basé sur Wikipédia : devinez le sujet à partir d'indices progressifs.",
+      technologies: ['React', 'Node.js', 'MySQL'],
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
+      link: 'https://wikisguessr.azim404.com/',
+    },
   ];
 
   return (
@@ -27,7 +51,7 @@ const Projects = () => {
           Mes Projets
         </h2>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <a
               key={project.id} 
