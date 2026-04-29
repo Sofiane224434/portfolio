@@ -50,18 +50,18 @@ const Projects = () => {
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
           Mes Projets
         </h2>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <a
-              key={project.id} 
+              key={project.id}
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow block focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-              <img 
-                src={project.image} 
+              <img
+                src={project.image}
                 alt={project.title}
                 className="w-full h-48 object-cover"
               />
@@ -74,7 +74,7 @@ const Projects = () => {
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech) => (
-                    <span 
+                    <span
                       key={tech}
                       className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm"
                     >
