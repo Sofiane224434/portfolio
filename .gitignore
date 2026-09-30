@@ -6,3 +6,5 @@
 /scripts/.translate-cache.json
 /conception/aides
 /agent/
+dist
+frontend/dist

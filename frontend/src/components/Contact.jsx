@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 
 const Contact = () => {
+  const PRO_EMAIL = 'sb.kherarfa@gmail.com';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: '',
   });
+
+  const [status, setStatus] = useState({ state: 'idle', message: '' });
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(PRO_EMAIL);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   const handleChange = (e) => {
     setFormData({
@@ -14,126 +25,155 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Ajoutez ici votre logique d'envoi de formulaire
-    alert('Message envoyé !');
-    setFormData({ name: '', email: '', message: '' });
+    setStatus({ state: 'loading', message: '' });
+
+    try {
+      const res = await fetch('/api/email/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setStatus({
+          state: 'success',
+          message: 'Merci pour votre message ! Je vous répondrai très prochainement.',
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        throw new Error('Erreur API');
+      }
+    } catch {
+      // Fallback direct mailto to guarantee contact
+      const mailtoUrl = `mailto:${PRO_EMAIL}?subject=${encodeURIComponent(
+        `[Portfolio] Message de ${formData.name || 'Visiteur'}`
+      )}&body=${encodeURIComponent(
+        `Nom: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      )}`;
+      window.location.href = mailtoUrl;
+      setStatus({
+        state: 'success',
+        message: 'Votre messagerie a été ouverte avec votre message pré-rempli pour envoi.',
+      });
+    }
   };
 
   return (
-    <section id="contact" className="py-20 bg-white">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
-          Contactez-moi
-        </h2>
-        
-        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-          <div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
-              Restons en contact
-            </h3>
-            <p className="text-gray-600 mb-8">
-              N'hésitez pas à me contacter pour toute opportunité ou collaboration. Je serais ravi d'échanger avec vous !
+    <section id="contact" className="py-20 sm:py-24 relative bg-slate-950/70">
+      <div className="container mx-auto px-6 max-w-4xl">
+        <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-cyan-500/20">
+          <div className="text-center max-w-xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-3">
+              Me Contacter
+            </h2>
+            <p className="text-gray-400 text-sm sm:text-base">
+              Pour un recrutement, une mission freelance ou une collaboration technique.
             </p>
-            
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-gray-500 text-sm">Email</p>
-                  <p className="text-gray-800 font-medium">votre.email@example.com</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-gray-500 text-sm">Téléphone</p>
-                  <p className="text-gray-800 font-medium">0000000000</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-gray-500 text-sm">Localisation</p>
-                  <p className="text-gray-800 font-medium">Paris, France</p>
-                </div>
-              </div>
-            </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
-                Nom
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                placeholder="Votre nom"
-              />
+          <div className="grid md:grid-cols-5 gap-8">
+            <div className="md:col-span-2 space-y-6">
+              <div className="p-5 rounded-2xl bg-slate-900 border border-cyan-500/30">
+                <div className="text-xs font-mono uppercase text-cyan-400 mb-1">
+                  Email Professionnel
+                </div>
+                <div className="text-white font-semibold text-sm sm:text-base break-all mb-3">
+                  {PRO_EMAIL}
+                </div>
+                <div className="flex gap-2">
+                  <a
+                    href={`mailto:${PRO_EMAIL}`}
+                    className="flex-1 py-2 px-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs text-center transition-all"
+                  >
+                    ✉️ Écrire
+                  </a>
+                  <button
+                    onClick={handleCopyEmail}
+                    className="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-gray-200 text-xs font-medium transition-colors"
+                  >
+                    {copied ? '✓ Copié' : 'Copier'}
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 text-xs text-gray-400 space-y-2">
+                <div className="text-white font-medium">Disponibilité :</div>
+                <div>À l'écoute de nouvelles opportunités en développement web Full Stack.</div>
+              </div>
             </div>
 
-            <div>
-              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                placeholder="votre.email@example.com"
-              />
-            </div>
+            <form onSubmit={handleSubmit} className="md:col-span-3 space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-xs font-mono uppercase text-gray-400 mb-1.5">
+                  Votre Nom ou Société
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 text-sm"
+                  placeholder="Ex : Marie Martin"
+                />
+              </div>
 
-            <div>
-              <label htmlFor="message" className="block text-gray-700 font-medium mb-2">
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows="5"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                placeholder="Votre message..."
-              ></textarea>
-            </div>
+              <div>
+                <label htmlFor="email" className="block text-xs font-mono uppercase text-gray-400 mb-1.5">
+                  Votre Adresse Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 text-sm"
+                  placeholder="marie@exemple.com"
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition font-medium"
-            >
-              Envoyer le message
-            </button>
-          </form>
+              <div>
+                <label htmlFor="message" className="block text-xs font-mono uppercase text-gray-400 mb-1.5">
+                  Votre Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows="4"
+                  className="w-full px-4 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 text-sm resize-none"
+                  placeholder="Décrivez votre projet..."
+                />
+              </div>
+
+              {status.message && (
+                <div
+                  className={`p-3 rounded-xl text-xs font-mono ${
+                    status.state === 'success'
+                      ? 'bg-emerald-950/70 border border-emerald-500/40 text-emerald-300'
+                      : 'bg-red-950/70 border border-red-500/40 text-red-300'
+                  }`}
+                >
+                  {status.message}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={status.state === 'loading'}
+                className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 disabled:opacity-50 text-slate-950 font-bold text-sm transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)]"
+              >
+                {status.state === 'loading' ? 'Envoi en cours...' : 'Envoyer le Message →'}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>

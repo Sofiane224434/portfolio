@@ -5,96 +5,122 @@ const Projects = () => {
     {
       id: 1,
       title: 'Fansite Malaisie',
-      description: 'Site vitrine dédié à la Malaisie, présentant culture, paysages et informations pratiques.',
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=400&h=300&fit=crop',
+      description: 'Site vitrine complet dédié à la Malaisie, présentant culture, paysages, guides touristiques et formalités.',
+      technologies: ['HTML5', 'TailwindCSS', 'JavaScript'],
+      image: 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=600&h=400&fit=crop',
       link: 'https://fansite.azim404.com/',
-      date: 'Septembre 2025',
+      badge: 'En ligne',
     },
     {
       id: 2,
       title: 'Novakult',
-      description: 'Médiathèque culturelle en ligne pour gérer et explorer une collection de médias variés.',
-      technologies: ['PHP', 'MySQL', 'Apache'],
-      image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=300&fit=crop',
+      description: 'Médiathèque culturelle en ligne pour gérer, filtrer et explorer un catalogue de médias variés avec persistance SQL.',
+      technologies: ['PHP MVC', 'MySQL', 'Docker'],
+      image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&h=400&fit=crop',
       link: 'https://novakult.azim404.com/',
-      date: 'Novembre 2025',
+      badge: 'Backend & SQL',
     },
     {
       id: 3,
       title: 'MovieDB',
-      description: 'Application web de découverte de films avec recherche, filtres et détails complets des films.',
+      description: 'Application interactive de cinéma connectée à l’API TMDB avec recherche temps réel, fiches détaillées et favoris.',
       technologies: ['React', 'API TMDB', 'Tailwind CSS'],
-      image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&h=300&fit=crop',
+      image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600&h=400&fit=crop',
       link: 'https://moviedb.azim404.com/',
-      date: 'Janvier 2026',
+      badge: 'API & Streaming',
     },
     {
       id: 4,
       title: 'MarsAI',
-      description: 'Application web orientée IA avec expérience dédiée, pensée pour une navigation simple et rapide.',
-      technologies: ['React', 'API', 'Tailwind CSS'],
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
-      link: 'https://Marsai.azim404.com/',
-      date: 'Mars 2026',
+      description: 'Interface web moderne dédiée aux interactions et modèles d’intelligence artificielle.',
+      technologies: ['React', 'API REST', 'Node.js'],
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop',
+      link: 'https://marsai.azim404.com/',
+      badge: 'IA & Web',
     },
     {
       id: 5,
       title: 'WikisGuessr',
-      description: "Jeu inspiré de GeoGuessr basé sur Wikipédia : devinez le sujet à partir d'indices progressifs.",
-      technologies: ['React', 'Node.js', 'MySQL'],
-      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop',
+      description: 'Jeu interactif inspiré de GeoGuessr : devinez le sujet encyclopédique à partir d’indices progressifs générés.',
+      technologies: ['React', 'Node.js', 'MySQL', 'Docker'],
+      image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop',
       link: 'https://wikisguessr.azim404.com/',
-      date: 'Avril 2026 (en cours)',
+      badge: 'Jeu Interactif',
+    },
+    {
+      id: 6,
+      title: 'Cars X Battle',
+      description: 'Jeu multijoueur de combat automobile en arène avec gestion de comptes et statistiques en direct.',
+      technologies: ['Node.js', 'Express', 'MySQL', 'Docker'],
+      image: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=600&h=400&fit=crop',
+      link: 'https://cxb.azim404.com/',
+      badge: 'Multijoueur',
     },
   ];
 
   return (
-    <section id="projects" className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
-          Mes Projets
-        </h2>
+    <section id="projects" className="py-20 sm:py-24 relative bg-[#030712]">
+      <div className="container mx-auto px-6 max-w-6xl">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-3">
+            Mes Réalisations
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base">
+            Projets web, applications interactives et services déployés en production
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <a
+            <div
               key={project.id}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow block focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="glass-panel rounded-2xl overflow-hidden flex flex-col justify-between hover:-translate-y-1 transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.08)] hover:shadow-[0_0_30px_rgba(6,182,212,0.25)] group"
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  <h3 className="text-2xl font-bold text-gray-800">
+              <div>
+                <div className="relative h-48 overflow-hidden bg-slate-900">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-black/75 border border-cyan-500/40 text-cyan-300 text-xs font-semibold backdrop-blur-md">
+                    {project.badge}
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors mb-2">
                     {project.title}
                   </h3>
-                  <span className="shrink-0 text-xs text-gray-500 mt-1">
-                    {project.date}
-                  </span>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs px-2.5 py-1 rounded-md bg-slate-900 text-cyan-300/90 border border-slate-700/80 font-mono"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-gray-600 mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-indigo-600 font-medium">Cliquer sur la card pour ouvrir</p>
               </div>
-            </a>
+
+              <div className="p-6 pt-0">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/30 hover:border-cyan-400 font-semibold text-xs text-center transition-all flex items-center justify-center gap-1.5"
+                >
+                  <span>Visiter l'application</span>
+                  <span>↗</span>
+                </a>
+              </div>
+            </div>
           ))}
         </div>
       </div>
