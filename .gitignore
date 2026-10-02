@@ -8,3 +8,11 @@
 /agent/
 dist
 frontend/dist
+
+# Private context and secrets
+.env.local
+.env.*.local
+shared-context/
+project-context.md
+*contexte*prive*.md
+conception/contexte-projets-prive.md
