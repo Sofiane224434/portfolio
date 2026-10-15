@@ -6,26 +6,18 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import MaintenanceScreen from './components/MaintenanceScreen';
+import { fetchBypassStatus, requestBypass, revokeBypass, takeBypassKeyFromUrl } from './services/maintenanceBypass';
 
 function App() {
   const [siteConfig, setSiteConfig] = useState(null);
-  const [bypassed, setBypassed] = useState(() => {
-    // 1. Verification auto bypass URL (?admin_bypass=azim404 ou ?bypass=azim404)
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get('admin_bypass') || params.get('azim_admin_bypass') || params.get('bypass');
-      const validKeys = ['azim404', 'admin404', 'azim2026', 'admin'];
-      if (token && validKeys.includes(token.toLowerCase().trim())) {
-        localStorage.setItem('azim_maintenance_bypass', 'true');
-        document.cookie = 'azim_maintenance_bypass=true; path=/; max-age=2592000; SameSite=Lax';
-        const cleanUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, cleanUrl);
-        return true;
-      }
-      return localStorage.getItem('azim_maintenance_bypass') === 'true';
-    }
-    return false;
-  });
+  const [bypassed, setBypassed] = useState(false);
+
+  // Dérogation vérifiée par le serveur (cookie signé), plus aucune clé côté navigateur
+  useEffect(() => {
+    localStorage.removeItem('azim_maintenance_bypass');
+    const urlKey = takeBypassKeyFromUrl();
+    (urlKey ? requestBypass(urlKey) : fetchBypassStatus()).then(setBypassed);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -91,10 +83,7 @@ function App() {
           <span className="w-2 h-2 rounded-full bg-amber-400" />
           <span>Mode Développeur Actif (Public en maintenance)</span>
           <button
-            onClick={() => {
-              localStorage.removeItem('azim_maintenance_bypass');
-              setBypassed(false);
-            }}
+            onClick={() => revokeBypass().then(setBypassed)}
             className="ml-1 text-[11px] underline text-gray-400 hover:text-white"
             title="Revenir en vue visiteur maintenance"
           >

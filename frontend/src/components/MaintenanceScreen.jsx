@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { requestBypass } from '../services/maintenanceBypass';
 
 export default function MaintenanceScreen({
   siteName = 'Sofiane Kherarfa',
@@ -11,49 +12,25 @@ export default function MaintenanceScreen({
   const [bypassError, setBypassError] = useState('');
   const [copied, setCopied] = useState(false);
 
-  // Auto-detect magic bypass parameter in URL (?admin_bypass=azim404 ou ?azim_admin_bypass=azim404)
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const bypassParam = params.get('admin_bypass') || params.get('azim_admin_bypass') || params.get('bypass');
-    const validKeys = ['azim404', 'admin404', 'azim2026', 'admin'];
-
-    if (bypassParam && validKeys.includes(bypassParam.toLowerCase().trim())) {
-      localStorage.setItem('azim_maintenance_bypass', 'true');
-      document.cookie = 'azim_maintenance_bypass=true; path=/; max-age=2592000; SameSite=Lax';
-
-      // Nettoie l'URL sans recharger
-      const cleanUrl = window.location.pathname + window.location.hash;
-      window.history.replaceState({}, document.title, cleanUrl);
-
-      if (onBypass) {
-        onBypass();
-      } else {
-        window.location.reload();
-      }
-    }
-  }, [onBypass]);
-
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('sb.kherarfa@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleBypassSubmit = (e) => {
+  // La clé est vérifiée par l'API azim404 (le lien ?admin_bypass= est géré dans App.jsx)
+  const handleBypassSubmit = async (e) => {
     e.preventDefault();
-    const cleanKey = (bypassKey || '').trim().toLowerCase();
-    const validKeys = ['azim404', 'admin404', 'azim2026', 'admin'];
-
-    if (validKeys.includes(cleanKey)) {
-      localStorage.setItem('azim_maintenance_bypass', 'true');
-      document.cookie = 'azim_maintenance_bypass=true; path=/; max-age=2592000; SameSite=Lax';
-      if (onBypass) {
-        onBypass();
-      } else {
-        window.location.reload();
-      }
-    } else {
+    const ok = await requestBypass((bypassKey || '').trim());
+    if (!ok) {
       setBypassError('Clé administrateur incorrecte');
+      return;
+    }
+    setShowBypassModal(false);
+    if (onBypass) {
+      onBypass();
+    } else {
+      window.location.reload();
     }
   };
 
@@ -227,7 +204,7 @@ export default function MaintenanceScreen({
                   setBypassKey(e.target.value);
                   setBypassError('');
                 }}
-                placeholder="Clé admin (ex: azim404)"
+                placeholder="Clé administrateur"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-400 font-mono"
                 autoFocus
               />
